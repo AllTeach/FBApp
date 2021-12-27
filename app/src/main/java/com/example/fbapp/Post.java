@@ -1,5 +1,7 @@
 package com.example.fbapp;
 
+import androidx.annotation.NonNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +18,15 @@ public class Post
         this.title = title;
         this.body = body;
         this.ownerMail = ownerMail;
+    }
+
+    public Post(Map<String,Object> map)
+    {
+        this.title = map.get("title").toString();
+        this.body = map.get("body").toString();
+        this.ownerMail = map.get("ownerMail").toString();
+
+
     }
 
     public String getTitle() {
@@ -43,16 +54,7 @@ public class Post
     }
 
 
-    public static Post hashMapToPost(Map<String,Object> map)
-    {
-        Post p = new Post();
-        p.title = map.get("title").toString();
-        p.body = map.get("body").toString();
-        p.ownerMail = map.get("ownerMail").toString();
 
-        return p;
-
-    }
     public Map<String,Object> postToHasMap()
     {
         Map<String,Object> map = new HashMap<>();
@@ -64,4 +66,6 @@ public class Post
 
 
     }
+
+
 }
