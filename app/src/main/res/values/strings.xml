@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FBApp</string>
+    <string name="action_sign_in">login</string>
+</resources>
