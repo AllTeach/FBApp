@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FBApp">
         <activity
+            android:name=".GameActivity"
+            android:exported="false" />
+        <activity
             android:name=".PostActivity"
             android:exported="true" />
         <activity

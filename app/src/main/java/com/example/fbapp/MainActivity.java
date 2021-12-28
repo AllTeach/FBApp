@@ -73,4 +73,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void gotoGameActivity(View view) {
+        if(!FirebaseComm.isUserSignedIn())
+        {
+            Toast.makeText(this," login first ",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this,GameActivity.class);
+        startActivity(intent);
+    }
 }

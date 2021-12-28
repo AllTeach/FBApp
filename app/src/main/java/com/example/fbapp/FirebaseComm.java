@@ -114,6 +114,8 @@ public class FirebaseComm {
     {
         this.fireStoreResult = fireStoreResult;
     }
+
+
     // Add data to a collection
     public void addToFireStoreCollection(String collectionName, Map<String, Object> map) {
         CollectionReference colRef = getCollectionReference(collectionName);
@@ -153,6 +155,19 @@ public class FirebaseComm {
                     }
                 });
     }
+    public void getDocumentWhereEqualWithLimit(String collectionName, String field,String value,int limit)
+    {
+        getCollectionReference(collectionName).whereEqualTo(field,value).limit(limit).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        Log.d(TAG, "onComplete:  equal to with limit: size= " + task.getResult().size());
+                        getDataFromListener(task);
+                    }
+                });
+    }
+
+
     public void getDocumentsOrderedByFieldWithLimit(String collectionName, String field,int limit)
     {
         getCollectionReference(collectionName).orderBy(field).limit(limit).get()
@@ -224,7 +239,14 @@ public class FirebaseComm {
 
     }
 
-    public void listenToDocumentChanges(Activity ac,String collectionName, String documentName) {
+    //
+    // listen to changes -
+    // A few overloads available for .addSnapshotListener
+    // since we would like to stop listening when activity stopped
+    // we need to perform unregister.
+    // if we used the one implemented here -> when it receives Activity
+    // it becomes activityscoped listener and automatically removed during onStop
+        public void listenToDocumentChanges(Activity ac,String collectionName, String documentName) {
         getCollectionReference(collectionName).document(documentName).addSnapshotListener(ac,new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {

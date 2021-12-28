@@ -55,7 +55,7 @@ public class Post
 
 
 
-    public Map<String,Object> postToHasMap()
+    public Map<String,Object> postToHashMap()
     {
         Map<String,Object> map = new HashMap<>();
         map.put("title",this.title);
