@@ -46,7 +46,7 @@ public class PostActivity extends AppCompatActivity implements FirebaseComm.Fire
 
         // here we map a specific post as single document for a user
         // can be used to open a Game Room in games
-        firebaseComm.addToFireStoreDocument("posts",p.getOwnerMail(),p.postToHashMap());
+        firebaseComm.setFireStoreDocument("posts",p.getOwnerMail(),p.postToHashMap());
 
         // listen for updates in the collection
         //firebaseComm.listenToCollectionChanges(this,"posts");

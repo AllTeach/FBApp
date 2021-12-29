@@ -55,7 +55,7 @@ public class GameActivity extends AppCompatActivity implements FirebaseComm.Fire
 
             // update game room in firestore and start listening
             // for changes
-            firebaseComm.addToFireStoreDocument("gameRoom",gr.getNameOwner(),gr.gameToHashMap());
+            firebaseComm.setFireStoreDocument("gameRoom",gr.getNameOwner(),gr.gameToHashMap());
             textView.setText(gr.toString());
             Toast.makeText(this,"joined game wait for other player",Toast.LENGTH_SHORT).show();
 
@@ -71,8 +71,8 @@ public class GameActivity extends AppCompatActivity implements FirebaseComm.Fire
             GameRoom gr = new GameRoom();
             String mail = FirebaseComm.authUserEmail();
             gr.setNameOwner(mail);
-            gr.setStatus(Utils.GAME_CREATED);
-            firebaseComm.addToFireStoreDocument("gameRoom",mail,gr.gameToHashMap());
+            gr.setStatus(AppConstants.GAME_CREATED);
+            firebaseComm.setFireStoreDocument("gameRoom",mail,gr.gameToHashMap());
 
             // listen for changes
             firebaseComm.listenToDocumentChanges(this,"gameRoom",gr.getNameOwner());
@@ -102,13 +102,13 @@ public class GameActivity extends AppCompatActivity implements FirebaseComm.Fire
         String mail = FirebaseComm.authUserEmail();
         // here we get changes in the document
         GameRoom gr = new GameRoom(map);
-        if(gr.getStatus().equals(Utils.GAME_STARTED))
+        if(gr.getStatus().equals(AppConstants.GAME_STARTED))
         {
             // check if this is my turn
             Toast.makeText(this,"game started",Toast.LENGTH_SHORT).show();
             textView.setText(gr.toString());
         }
-        else if(gr.getStatus().equals(Utils.GAME_JOINED))
+        else if(gr.getStatus().equals(AppConstants.GAME_JOINED))
         {
 
 
@@ -120,8 +120,8 @@ public class GameActivity extends AppCompatActivity implements FirebaseComm.Fire
                 Toast.makeText(this,"game started!!",Toast.LENGTH_SHORT).show();
 
                 textView.setText(gr.toString());
-                gr.setStatus(Utils.GAME_STARTED);
-                firebaseComm.addToFireStoreDocument("gameRoom",gr.getNameOwner(),gr.gameToHashMap());
+                gr.setStatus(AppConstants.GAME_STARTED);
+                firebaseComm.setFireStoreDocument("gameRoom",gr.getNameOwner(),gr.gameToHashMap());
 
             }
 

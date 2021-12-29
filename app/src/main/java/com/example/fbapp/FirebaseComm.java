@@ -128,9 +128,13 @@ public class FirebaseComm {
                 });
     }
 
+
     // set data in a specific document or create one.
-    public void addToFireStoreDocument(String collectionName, String documentName, Map<String, Object> map) {
+    public void setFireStoreDocument(String collectionName, String documentName, Map<String, Object> map) {
         DocumentReference docRef = getCollectionReference(collectionName).document(documentName);
+         // Note there are options for update & Set with Merge Flag
+         // Also for a single element
+         // shown here ->  set this item whether new or replace existing
         docRef.set(map)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
